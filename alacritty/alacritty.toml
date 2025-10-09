@@ -1,0 +1,49 @@
+[window]
+padding.x = 1
+padding.y = 1
+dynamic_padding = false
+decorations = "none"
+opacity = 1
+title = "Alacritty"
+startup_mode = "Windowed"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[colors.primary]
+background = "0x0c0c0c"
+foreground = "0xd7d7d7"
+
+[colors.normal]
+black = "0x000000"
+red = "0xaa0000"
+green = "0x00aa00"
+yellow = "0xaaaa00"
+blue = "0x0088cc"
+magenta = "0xaa00aa"
+cyan = "0x00aaaa"
+white = "0xd7d7d7"
+
+[colors.bright]
+black = "0x555555"
+red = "0xff5555"
+green = "0x55ff55"
+yellow = "0xffff55"
+blue = "0x5599ff"
+magenta = "0xff55ff"
+cyan = "0x55ffff"
+white = "0xffffff"
+
+[cursor]
+style = "Beam"
+unfocused_hollow = false
+thickness = 0.2
+[scrolling]
+history = 10000
+multiplier = 3
+
+[mouse]
+hide_when_typing = true
+
+

@@ -1,0 +1,42 @@
+/* works with rofi 1.x / 2.x syntax */
+* {
+    background-color: #0c0c0c;
+    text-color: #d7d7d7;
+    border-color: #1e1e1e;
+    selected-normal-background: #1a1a1a;
+    selected-normal-foreground: #ffffff;
+    font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+    padding: 10px;
+    border: 0px;
+    border-radius: 10px;
+}
+
+mainbox {
+    border: 0;
+    padding: 10px;
+}
+
+inputbar {
+    border: 0;
+    padding: 6px 10px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+}
+
+listview {
+    spacing: 4px;
+    scrollbar: false;
+}
+
+element {
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+element selected {
+    background-color: #1a1a1a;
+    text-color: #ffffff;
+}

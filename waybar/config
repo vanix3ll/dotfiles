@@ -1,0 +1,38 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "margin": "6 12 0 12",
+  "modules-left": ["niri/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["tray", "network", "pulseaudio"],
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "{:%A, %d %B %Y}"
+  },
+
+  "tray": {
+    "icon-size": 18,
+    "spacing": 6,
+    "tooltip": true,
+    "ignored-apps": ["nm-applet"]
+  },
+
+  "network": {
+    "format-wifi": "",
+    "format-ethernet": "",
+    "format-disconnected": "",
+    "on-click": "bash -c 'pgrep nm-applet || nm-applet --indicator & disown; nmcli device wifi rescan'",
+    "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol",
+    "tooltip-format": "Volume: {volume}%"
+  }
+}

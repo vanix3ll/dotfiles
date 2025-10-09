@@ -1,0 +1,24 @@
+colors:
+  primary:
+    background: '0xf3e5ab'   # light beige parchment
+    foreground: '0x4b3f2f'   # dark brown ink
+
+  normal:
+    black:   '0x3b2f2f' # deep coffee
+    red:     '0xa0522d' # sienna
+    green:   '0x8b6f47' # olive brown
+    yellow:  '0xd2b48c' # tan
+    blue:    '0x5c4033' # dark wood
+    magenta: '0x7b4b3a' # reddish brown
+    cyan:    '0x9c8b7a' # dusty taupe
+    white:   '0xe6d5b8' # light sand
+
+  bright:
+    black:   '0x4d3d36' # roasted beans
+    red:     '0xb5651d' # earthy orange
+    green:   '0x9c7a56' # warm moss
+    yellow:  '0xe6c79c' # latte foam
+    blue:    '0x6e4b3a' # walnut
+    magenta: '0x8c5a4a' # brick
+    cyan:    '0xb09c8e' # pale mocha
+    white:   '0xfff8e7' # cream
