@@ -1,0 +1,117 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 30,
+  "spacing": 4,
+
+  "modules-left": ["hyprland/workspaces", "hyprland/mode"],
+  "modules-center": ["clock","custom/cpu"],
+  "modules-right": [
+    "network",
+    "pulseaudio",
+    "tray"
+  ],
+
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+
+  "niri/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+
+  "custom/cpu": {
+      "exec": "~/.config/waybar/auto-cpufreq-status.sh",
+      "interval": 5,
+      "format": "{}",
+      "tooltip": "CPU Governor and Frequency"
+  }
+  
+  },
+
+  "tray": {
+    "spacing": 10
+  },
+
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%H:%M %p}",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+
+  "backlight": {
+    "format": "{percent}%",
+    "format-icons": []
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󰃨",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  "network": {
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+    "tooltip-format": "{ifname} via {gwaddr} 󰈀",
+    "format-linked": "{ifname} (No IP) 󰈀",
+    "format-disconnected": "Disconnected ⚠",
+    "on-click": "kitty -e nmtui"
+  },
+
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-bluetooth-muted": "󰆪 ",
+    "format-muted": "󰆪",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󰂑",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "mpd": {
+    "format": "{stateIcon} {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "Stopped ",
+    "interval": 2,
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+
+  "custom/media": {
+    "format": "{icon} {}",
+    "return-type": "json",
+    "max-length": 40,
+    "format-icons": {
+      "spotify": "",
+      "default": "🎜"
+    },
+    "escape": true,
+    "exec": "$HOME/.config/waybar/mediaplayer.py 2>/dev/null"
+  }
+}
