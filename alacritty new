@@ -1,0 +1,14 @@
+[general]
+import = [ "~/.config/alacritty/everfrost.toml" ]
+
+[window]
+opacity = 1
+padding.x = 12
+padding.y = 12
+
+[font]
+normal = { family = "monospace", style = "Regular" }
+size = 16
+
+[cursor]
+style = { shape = "beam", blinking = "On" }
