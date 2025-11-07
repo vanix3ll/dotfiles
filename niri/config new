@@ -1,0 +1,371 @@
+environment {
+    DRI_PRIME "0"
+    LIBVA_DRIVER_NAME "iHD"
+
+    // Enable hardware video decode
+    VDPAU_DRIVER "va_gl"
+
+    // Qt optimizations
+    QT_QPA_PLATFORM "wayland"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+
+
+
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    QT_QPA_PLATFORMTHEME "qt6ct"
+
+    EGL_PLATFORM "wayland"
+
+    // Vulkan for better gaming performance
+    __GLX_VENDOR_LIBRARY_NAME "mesa"
+}
+
+
+workspace "1"
+workspace "2"
+workspace "3"
+workspace "4"
+
+
+
+output "eDP-1" {
+    // off
+    mode "1920x1080@60"
+    scale 1.1
+     variable-refresh-rate on-demand=true
+    focus-at-startup
+    }
+layout {
+    gaps 10
+    background-color "transparent"
+    always-center-single-column
+    // center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.25
+        proportion 0.5
+        proportion 0.8
+    }
+
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+          //off
+        width 2.5
+        active-color "#ffffff"
+    }
+
+    border {
+        off
+        width 1
+        active-color "#555"
+        inactive-color "#222"
+    }
+
+    shadow {
+        // on
+        softness 20
+        spread 5
+        offset x=0 y=5
+    }
+
+    tab-indicator {
+        width 2
+        gap -5
+        gaps-between-tabs 5
+        corner-radius 10
+        active-color "#2f3dbd"
+        inactive-color "#ffffff55"
+    }
+
+    insert-hint {
+        color "#2f3dbd"
+    }
+}
+
+
+
+
+layer-rule {
+    match namespace="swww"
+    place-within-backdrop true
+}
+
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+animations {
+     // off
+    window-close {
+        duration-ms 250
+        curve "ease-out-quad"
+    }
+
+    screenshot-ui-open {
+        duration-ms 500
+        curve "ease-out-quad"
+    }
+
+    workspace-switch {
+        spring damping-ratio=0.7 stiffness=200 epsilon=0.0001
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.7 stiffness=200 epsilon=0.0001
+    }
+
+    overview-open-close {
+        spring damping-ratio=0.7 stiffness=200 epsilon=0.001
+    }
+
+    horizontal-view-movement {
+        spring damping-ratio=0.7 stiffness=200 epsilon=0.0001
+    }
+
+    window-resize {
+        spring damping-ratio=0.7 stiffness=200 epsilon=0.0001
+    }
+
+    window-open {
+        spring damping-ratio=0.7 stiffness=200 epsilon=0.0001
+    }
+
+    window-movement {
+        spring damping-ratio=0.7 stiffness=200 epsilon=0.0001
+    }
+
+    // slowdown 3.0
+}
+
+// Open the Firefox picture-in-picture player as floating by }
+
+
+
+
+
+
+// Example: enable rounded corners for all windows.
+window-rule {
+    geometry-corner-radius 1
+    clip-to-geometry true
+}
+
+binds {
+    // Mod-Shift-/, which is usually the same as Mod-?,
+    // shows a list of important hotkeys.
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+	Mod+comma { consume-or-expel-window-left; }
+	Mod+period { consume-or-expel-window-right; }
+
+
+
+    Mod+Shift+E { quit; }
+
+
+    // Open/close the Overview: a zoomed-out view of workspaces and windows.
+    // You can also do a four-finger swipe up on a touchpad.
+    Mod+Escape repeat=false { toggle-overview; }
+
+    // Suggested binds for running programs: terminal, app launcher, screen locker.
+    Mod+D { spawn "fuzzel"; }
+    Mod+Return { spawn "foot"; }
+
+
+    Mod+L { spawn "wlogout"; }
+    Mod+E { spawn "nautilus"; }
+    Mod+I { spawn "pavucontrol"; }
+    Mod+B { spawn "chromium"; }
+    // Example volume keys mappings for PipeWire & WirePlumber.
+    // The allow-when-locked=true property makes them work even when the session is locked.
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    // Example media keys mapping using playerctl.
+    // This will work with any MPRIS-enabled media player.
+    XF86AudioNext         allow-when-locked=true { spawn-sh "playerctl next"; }
+    XF86AudioPause        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioPlay         allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioPrev         allow-when-locked=true { spawn-sh "playerctl previous"; }
+
+    // Example brightness key mappings for brightnessctl.
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
+    Mod+Q repeat=false { close-window; }
+
+    Mod+Tab  { focus-column-left; }
+   // Mod+Down  { focus-window-down; }
+   // Mod+Up    { focus-window-up; }
+    Alt+Tab { focus-column-right; }
+
+    Mod+Left  { move-column-left; }
+     Mod+Down  { move-window-down; }
+     Mod+Up    { move-window-up; }
+    Mod+Right { move-column-right; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    Mod+Shift+Left  { focus-monitor-left; }
+    Mod+Shift+Down  { focus-monitor-down; }
+    Mod+Shift+Up    { focus-monitor-up; }
+    Mod+Shift+Right { focus-monitor-right; }
+
+    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up   { move-workspace-up; }
+
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    // Usually scrolling up and down with Shift in applications results in
+    // horizontal scrolling; these binds replicate that.
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    // Consume one window from the right to the bottom of the focused column.
+    //Mod+Comma  { consume-window-into-column; }
+    // Expel the bottom window from the focused column to the right.
+   // Mod+Period { expel-window-from-column; }
+
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+C { center-column; }
+    Mod+W { toggle-column-tabbed-display; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    // Finer height adjustments when in column with other windows.
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // Move the focused window between the floating and the tiling layout.
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    // Mod+Tab { focus-workspace-previous; }
+    // Mod+Tab { focus-next; }
+    Mod+Shift+S { screenshot show-pointer=false; }
+    Ctrl+Print { screenshot-screen show-pointer=false; }
+    Alt+Print { screenshot-window; }
+
+}
+
+overview {
+    backdrop-color "transparent"
+    zoom 0.3
+}
+
+
+
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+window-rule {
+    match app-id="chromium"
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="brave"
+    open-on-workspace "1"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="YouTube Music Desktop App"
+    open-on-workspace "2"
+}
+
+window-rule {
+    match app-id="vesktop"
+    open-on-workspace "2"
+
+}
+window-rule {
+    match app-id="equibop"
+    open-on-workspace "2"
+}
+
+window-rule {
+    match app-id="YouTube Music Desktop App"
+    open-on-workspace "2"
+}
+
+window-rule {
+    match app-id="org.vinegarhq.Sober"
+    open-on-workspace "3"
+}
+spawn-at-startup "qs" "-c" "noctalia-shell"
+//spawn-at-startup "swww-daemon"
+//spawn-at-startup "waybar"
+spawn-at-startup "lxpolkit"
+spawn-at-startup "/usr/lib/xdg-desktop-portal-gnome"
+spawn-at-startup "/usr/lib/xdg-desktop-portal-gtk"
+
+input {
+    keyboard {
+        repeat-delay 200
+        repeat-rate 80
+    }
+
+    focus-follows-mouse
+}
