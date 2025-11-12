@@ -1,16 +1,23 @@
+# Import colors from pywal
+include ~/.cache/wal/colors-sway
 
+# Border colors using pywal variables
+# class                 border      background  text        indicator   child_border
+client.focused          $color4     $color4     $foreground $color5     $color4
+client.focused_inactive $color1     $color1     $foreground $color3     $color1
+client.unfocused        $background $background $foreground $color1     $background
+client.urgent           $color9     $color9     $foreground $color9     $color9
+client.placeholder      $background $background $foreground $background $background
+client.background       $background
 
 # Environment setup
-#set $env vblank_mode=0
-set $var_name value
-
 exec "dbus-update-activation-environment --systemd GTK_BACKEND=wayland WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway MOZ_ENABLE_WAYLAND=1; systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_BACKEND MOZ_ENABLE_WAYLAND; systemctl --user start sway-session.target"
+
 # Set environment variables for Sway session
 exec_always export MOZ_ENABLE_WAYLAND=1
 exec_always export QT_QPA_PLATFORM=wayland
 exec_always export XDG_CURRENT_DESKTOP=sway
-exec_always export XDG_SESSION_TYPE=pk
-
+exec_always export XDG_SESSION_TYPE=wayland
 
 output * adaptive_sync on
 
@@ -20,9 +27,8 @@ input * {
     pointer_accel 0
 }
 
-
 exec_always --no-startup-id autotiling
-exec_always swww-daemon
+exec_always swww-daemon &
 exec_always waybar
 exec wl-clip-persist --clipboard regular --daemon
 exec wl-paste -t text --watch clipman store --histpath ~/.local/share/clipman.json
@@ -35,6 +41,7 @@ input "9610:73:BY_Tech_Gaming_Keyboard" {
     repeat_rate 50
     xkb_layout us
 }
+
 input "1:1:AT_Translated_Set_2_keyboard" {
     repeat_delay 200
     repeat_rate 50
@@ -47,6 +54,7 @@ input "12538:1024:USB_Optical_Mouse" {
     pointer_accel 0
     scroll_method two_finger
 }
+
 input "1267:12608:ELAN06FA:00_04F3:3140_Mouse" {
     accel_profile flat
     pointer_accel 0
@@ -55,15 +63,15 @@ input "1267:12608:ELAN06FA:00_04F3:3140_Mouse" {
 
 # Monitor 
 output eDP-1 mode 1920x1080@60Hz
-#output eDP-1 scale 1.5
 
 # Fonts
 font pango:Noto Sans, Noto Naskh Arabic 10
 
-default_border pixel 1
+default_border pixel 2
+default_floating_border pixel 2
 titlebar_border_thickness 0
-
 mouse_warping none
+
 # Mod key and variables
 set $mod Mod4
 set $left h
@@ -74,15 +82,13 @@ set $resize_factor 40px
 set $menu fuzzel | swaymsg
 set $file rofi -show filebrowser | swaymsg
 set $power rofi -show powermenu | swaymsg
-set $browser chromium-browser
+set $browser flatpak run org.chromium.Chromium
 set $private-browser firefox --private-window
-set $term alacritty
+set $term foot
 
 # Borders and gaps
-default_border pixel 2
-default_floating_border pixel 2
-gaps outer 2
-gaps inner 2
+gaps outer 1
+gaps inner 1
 smart_borders off
 smart_gaps inverse_outer
 
@@ -93,9 +99,11 @@ input type:touchpad {
     middle_emulation enabled
     dwt disabled
 }
+
 input type:keyboard {
     xkb_options ctrl:nocaps
 }
+
 input type:touch {
     events disabled
 }
@@ -113,9 +121,8 @@ bindsym $mod+Tab workspace next
 bindsym $mod+e exec $file
 bindsym $mod+z exec pavucontrol
 bindsym $mod+Shift+c reload
+bindsym $mod+r exec killall waybar && waybar
 bindsym $mod+v exec clipman pick -t rofi
-
-
 
 # Multimedia keys
 bindsym --locked XF86MonBrightnessUp exec light -A 5
@@ -139,12 +146,10 @@ bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym Alt+Tab focus right
-
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-
 bindsym $mod+Ctrl+$left resize shrink width $resize_factor
 bindsym $mod+Ctrl+$down resize grow height $resize_factor
 bindsym $mod+Ctrl+$up resize shrink height $resize_factor
@@ -160,7 +165,6 @@ bindsym $mod+6 workspace number 6
 bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
-
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
@@ -183,15 +187,14 @@ bindsym $mod+minus scratchpad show
 # Screenshot
 bindsym --release $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 
-
+# Window assignments
 assign [app_id="spotify"] workspace number 3
-
-assign [app_id="chromium-browser"] workspace number 1
-
+assign [app_id="org.chromium.Chromium"] workspace number 1
 assign [app_id="org.vinegarhq.sober"] workspace number 4
 assign [app_id="vesktop"] workspace number 2
 
-
+# Tearing support
 output * allow_tearing enabled
 for_window [app_id="gamemode"] allow_tearing enabled
+
 workspace_auto_back_and_forth yes
