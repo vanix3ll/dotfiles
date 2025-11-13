@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Environment variables
+export MOZ_ENABLE_WAYLAND=1
+export QT_QPA_PLATFORM=wayland
+export XDG_CURRENT_DESKTOP=mango
+export XDG_SESSION_TYPE=wayland
+
+# Start services
+dbus-update-activation-environment --systemd GTK_BACKEND=wayland WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=mango MOZ_ENABLE_WAYLAND=1
+systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_BACKEND MOZ_ENABLE_WAYLAND
+systemctl --user start mango-session.target
+
+# Wallpaper/waybar/clipboard etc
+waybar -c ~/.config/mango/waybar/config -s ~/.config/mango/waybar/style.css &
+swww-daemon &
+wl-clip-persist --clipboard regular --daemon &
+wl-paste -t text --watch clipman store --histpath ~/.local/share/clipman.json &
+
+# Input / pointer adjustments (if needed)
+# Example: xsetwacom or other
+
+# Additional autostart items
