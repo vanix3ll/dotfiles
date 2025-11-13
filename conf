@@ -1,0 +1,88 @@
+# Import colors from pywal
+# Note: mango doesn’t use “include” like sway; you’ll need to export environment vars
+env=WP_COLORS_FILE,~/.cache/wal/colors-mangowc
+# Then you can reference colors in CSS or scripts invoked later.
+
+# Window border & background colours can be set in style; for now we set vars
+env=COLOR4,$color4
+env=COLOR1,$color1
+env=COLOR9,$color9
+env=BACKGROUND,$background
+env=FOREGROUND,$foreground
+env=COLOR5,$color5
+env=COLOR3,$color3
+
+# Pointer / input config
+accel_profile=2            # flat / no accel
+accel_speed=0.0
+
+# Touchpad / keyboard settings (use input section)
+scroll_method=1
+click_method=1
+button_map=0
+
+# Keybindings
+bind=SUPER,Return,spawn,$term
+bind=SUPER,q,killclient,
+bind=SUPER,d,spawn,$menu
+bind=SUPER,b,spawn,$browser
+bind=SUPER+SHIFT,b,spawn,$private_browser
+bind=SUPER,Tab,viewnext,   # next tag (workspace)
+bind=SUPER,e,spawn,$file
+bind=SUPER,z,spawn,pavucontrol
+bind=SUPER+SHIFT,c,reload_config,
+bind=SUPER+r,reload_config,  # mango doesn’t require killing bar, just reload config
+bind=SUPER+v,spawn,clipman pick -t rofi
+
+# Multimedia keys
+bind=NONE,XF86MonBrightnessUp,spawn,light -A 5
+bind=NONE,XF86MonBrightnessDown,spawn,light -U 5
+bind=NONE,XF86AudioRaiseVolume,spawn,pactl set-sink-volume @DEFAULT_SINK@ +5%
+bind=NONE,XF86AudioLowerVolume,spawn,pactl set-sink-volume @DEFAULT_SINK@ -5%
+bind=NONE,XF86AudioMute,spawn,pactl set-sink-mute @DEFAULT_SINK@ toggle
+bind=NONE,XF86AudioMicMute,spawn,pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bind=NONE,XF86AudioPlay,spawn,playerctl play-pause
+bind=NONE,XF86AudioNext,spawn,playerctl next
+bind=NONE,XF86AudioPrev,spawn,playerctl previous
+bind=SUPER,p,spawn,playerctl play-pause
+bind=SUPER+SHIFT,m,spawn,playerctl next
+bind=SUPER+SHIFT+n,spawn,playerctl previous
+
+# Layouts / tags (workspaces)
+# mango uses “tags” similar to dwl; we assume 1-10 tags.
+default_tags=1,2,3,4,5,6,7,8,9,10
+# Move client to tag:
+bind=SUPER+SHIFT,1,clienttotag,1
+bind=SUPER+SHIFT,2,clienttotag,2
+...
+bind=SUPER+SHIFT,0,clienttotag,10
+
+# View tag:
+bind=SUPER,1,viewtag,1
+bind=SUPER,2,viewtag,2
+...
+bind=SUPER,0,viewtag,10
+
+# Layout switching (example: tile, monocle)
+bind=SUPER+SPACE,layoutcycle,
+bind=SUPER,f,togglescreenfull,
+bind=SUPER+SHIFT+SPACE,togglefloating,
+bind=SUPER+a,focustag,previous,
+
+# Border & gaps: mango has border_width and gap config
+border_width=2
+gap_inner=1
+gap_outer=1
+smart_borders=0
+smart_gaps=0   # or set to “inverse_outer” equivalent manually
+
+# Window rules (assign)
+# For app spawn rules:
+rule=app_id=spotify,tag=3
+rule=app_id=org.chromium.Chromium,tag=1
+rule=app_id=chromium,tag=1
+rule=app_id=org.vinegarhq.sober,tag=4
+rule=app_id=vesktop,tag=2
+
+# Cursor/scale
+cursor_size=24
