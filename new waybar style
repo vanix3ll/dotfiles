@@ -1,57 +1,43 @@
 * {
-  border: none;
-  border-radius: 0;
-  font-family: monospace;
-  font-size: 13px;
-  min-height: 0;
+    border: none;
+    font-family: "monospace";
+    font-size: 14px;
 }
 
 window#waybar {
-  background: #0e0e0e;
-  color: #e5e5e5;
+    background: #1a1a1a;
+    color: #ffffff;
+    /* Adding radius and margin for the floating look */
+    border-radius: 15px; 
+    margin: 10px 10px 0 10px; 
 }
 
-/* Workspace dots */
+/* Optional: This creates a wrapper for the modules inside the bar */
+.modules-left, .modules-center, .modules-right {
+    background: #252525;
+    border-radius: 12px;
+    margin: 4px;
+    padding: 0 5px;
+}
+
 #workspaces button {
-  padding: 0 0px;
-  color: #666;
+    padding: 0 8px;
+    background: transparent;
+    color: #ffffff;
+    border-radius: 10px; /* Rounded workspace buttons */
 }
 
 #workspaces button.focused {
-  color: #ffffff;
+    background: #323223;
+    border-radius: 10px;
 }
 
-/* Center title */
-#window {
-  color: #ffffff;
-  font-weight: 500;
+#clock, #pulseaudio, #network, #tray {
+    padding: 0 10px;
+    margin: 2px 0;
 }
 
-/* Right modules */
-#cpu,
-#memory,
-#pulseaudio,
-#network,
-#battery,
-#clock {
-  padding: 0 8px;
-  color: #cfcfcf;
-}
-
-/* Subtle separators look */
-#cpu,
-#memory,
-#pulseaudio,
-#network,
-#battery {
-  border-right: 1px solid #222;
-}
-
-/* Battery states */
-#battery.warning {
-  color: #e6b450;
-}
-
-#battery.critical {
-  color: #e65050;
-}
+/* Optional: Slight color coding */
+#network { color: #88c0d0; }
+#pulseaudio { color: #ebcb8b; }
+#pulseaudio.microphone { color: #d08770; }
