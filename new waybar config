@@ -1,70 +1,48 @@
+
 {
-  "layer": "top",
-  "position": "top",
-  "height": 34,
-  "spacing": 2,
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "modules-left": ["hyprland/workspaces", "sway/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio#microphone", "pulseaudio", "tray"],
 
-  "modules-left": [
-    "sway/workspaces"
-  ],
+    "clock": {
+        /* %I is 12h, %p is AM/PM */
+        "format": "{:%I:%M %p}", 
+        "tooltip-format": "{:%A, %B %d, %Y}"
+    },
 
-  "modules-center": [
-    "sway/window"
-  ],
+    "pulseaudio": {
+        "format": "VOL {volume}%",
+        "format-muted": "MUTED",
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
+        "scroll-step": 1
+    },
 
-  "modules-right": [
-    "cpu",
-    "memory",
-    "pulseaudio",
-    "network",
-    "clock"
-  ],
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": "MIC {volume}%",
+        "format-source-muted": "MIC OFF",
+        "on-click": "pavucontrol",
+        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
+        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
+        "scroll-step": 1
+    },
 
-  "sway/workspaces": {
-    "disable-scroll": true,
-    "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "focused": "●",
-      "default": "○"
+    "network": {
+        "format-wifi": "WIFI",
+        "format-ethernet": "ETH",
+        "format-disconnected": "OFFLINE",
+        "on-click": "alacritty -e nmtui" 
+    },
+
+    "tray": {
+        "spacing": 10
     }
-  },
-
-  "sway/window": {
-    "format": "{}",
-    "max-length": 60
-  },
-
-  "clock": {
-    "format": "{:%I:%M %p}",
-    "tooltip-format": "<tt>{calendar}</tt>"
-  },
-
-  "cpu": {
-    "format": "CPU {usage}%"
-  },
-
-  "memory": {
-    "format": "RAM {}%"
-  },
-
-  "network": {
-    "format-wifi": "WiFi",
-    "format-ethernet": "ETH",
-    "format-disconnected": "No Net"
-  },
-
-"pulseaudio": {
-  "format": "VOL {volume}%",
-  "format-muted": "MUTED",
-  "on-click": "pavucontrol"
-},
-
-  "battery": {
-    "format": "BAT {capacity}%",
-    "states": {
-      "warning": 30,
-      "critical": 15
-    }
-  }
 }
