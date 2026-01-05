@@ -11,16 +11,9 @@ client.placeholder      $background $background $foreground $background $backgro
 client.background       $background
 
 # Environment setup
-exec "dbus-update-activation-environment --systemd GTK_BACKEND=wayland WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway MOZ_ENABLE_WAYLAND=1; systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP GTK_BACKEND MOZ_ENABLE_WAYLAND; systemctl --user start sway-session.target"
-
-# Set environment variables for Sway session
-exec_always export MOZ_ENABLE_WAYLAND=1
-exec_always export QT_QPA_PLATFORM=wayland
-exec_always export XDG_CURRENT_DESKTOP=sway
-exec_always export XDG_SESSION_TYPE=wayland
-
-output * adaptive_sync on
-
+# Add this to your sway config
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 # Reduce input latency
 input * {
     accel_profile flat
@@ -48,21 +41,22 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     xkb_layout us
 }
 
-# Mouse setup
-input "12538:1024:USB_Optical_Mouse" {
-    accel_profile flat
-    pointer_accel 0
-    scroll_method two_finger
+# # Logitech G102 Mouse Settings
+input "1133:49309:Logitech_G102_LIGHTSYNC_Gaming_Mouse" {
+    middle_emulation enabled
+    scroll_method on_button_down
+    scroll_button BTN_MIDDLE
 }
 
-input "1267:12608:ELAN06FA:00_04F3:3140_Mouse" {
-    accel_profile flat
-    pointer_accel 0
-    scroll_method two_finger
+# Touchpad Settings (Enabling Tap-to-click and Middle Emulation)
+input "1267:12608:ELAN06FA:00_04F3:3140_Touchpad" {
+    tap enabled
+    middle_emulation enabled
+    natural_scroll enabled
 }
 
 # Monitor 
-output eDP-1 mode 1920x1080@60Hz
+output eDP-1 mode 1920x1080@60Hz scale 1.2
 
 # Fonts
 font pango:Noto Sans, Noto Naskh Arabic 10
@@ -79,18 +73,17 @@ set $down i
 set $up u
 set $right w
 set $resize_factor 40px
-set $menu fuzzel | swaymsg
+set $menu rofi -show drun | swaymsg
 set $file rofi -show filebrowser | swaymsg
 set $power rofi -show powermenu | swaymsg
 set $browser flatpak run org.chromium.Chromium
 set $private-browser firefox --private-window
-set $term foot
+set $term alacritty
 
 # Borders and gaps
-gaps outer 1
-gaps inner 1
+gaps outer 5
+gaps inner 5
 smart_borders off
-smart_gaps inverse_outer
 
 # Input behavior
 input type:touchpad {
