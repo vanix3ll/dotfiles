@@ -1,48 +1,74 @@
-
 {
     "layer": "top",
     "position": "top",
     "height": 30,
-    "margin-top": 5,
+    "spacing": 0,
+    "margin-top": 8,
     "margin-left": 10,
     "margin-right": 10,
-    "modules-left": ["hyprland/workspaces", "sway/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio#microphone", "pulseaudio", "tray"],
+    "modules-left": ["sway/workspaces", "mpris", "sway/mode"],
+    "modules-center": ["custom/clock"],
+    "modules-right": ["sway/language", "pulseaudio", "battery", "backlight", "tray"],
 
-    "clock": {
-        /* %I is 12h, %p is AM/PM */
-        "format": "{:%I:%M %p}", 
-        "tooltip-format": "{:%A, %B %d, %Y}"
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "format": "{icon}{name}",
+        "format-icons": {
+            "default": " ",
+            "urgent": "!",
+            "focused": "*"
+        }
+    },
+
+    "mpris": {
+        "format": "<span color='#252525'>[ </span><span color='#afa193'><b>music:</b></span> {artist} - {title}<span color='#252525'> ]</span>",
+        "format-paused": "<span color='#252525'>[ </span><span color='#afa193'><b>paused:</b></span> {artist} - {title}<span color='#252525'> ]</span>",
+        "max-length": 40,
+        "player-icons": {
+            "default": "▶",
+            "spotify": " "
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "artist-len": 15,
+        "title-len": 20
+    },
+
+    "sway/mode": {
+        "format": "  {}"
+    },
+
+    "custom/clock": {
+        "format": "<span color='#252525'>[ </span>{text}<span color='#252525'> ]</span>",
+        "exec": "date +'%H:%M %A, %b %d' | awk '{print tolower($0)}'",
+        "interval": 3
+    },
+
+    "sway/language": {
+        "format": "<span color='#252525'>[ </span><span color='#afa193'><b>key: </b></span>{short}<span color='#252525'> / </span>",
+        "tooltip": false
     },
 
     "pulseaudio": {
-        "format": "VOL {volume}%",
-        "format-muted": "MUTED",
-        "on-click": "pavucontrol",
-        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +1%",
-        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -1%",
-        "scroll-step": 1
+        "format": "<span color='#afa193'><b>vol:</b></span> {volume}%"
+    },
+    
+    "battery": {
+        "format": "<span color='#252525'> / </span><span color='#afa193'><b>bat:</b></span> {capacity}%",
+        "format-charging": "<span color='#252525'> / </span><span color='#afa193'><b>ac:</b></span> {capacity}%",
+        "tooltip": false,
+        "interval": 20
     },
 
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": "MIC {volume}%",
-        "format-source-muted": "MIC OFF",
-        "on-click": "pavucontrol",
-        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
-        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
-        "scroll-step": 1
+    "backlight": {
+        "format": "<span color='#252525'> / </span><span color='#afa193'><b>mon:</b></span> {percent}%<span color='#252525'> ]</span>",
+        "tooltip": false
     },
-
-    "network": {
-        "format-wifi": "WIFI",
-        "format-ethernet": "ETH",
-        "format-disconnected": "OFFLINE",
-        "on-click": "alacritty -e nmtui" 
-    },
-
+    
     "tray": {
-        "spacing": 10
+        "icon-size": 20,
+        "spacing": 7,
+        "tooltip": false
     }
 }
