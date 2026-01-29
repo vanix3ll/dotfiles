@@ -1,0 +1,52 @@
+/* All buttons */
+button {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+    border: 2px solid #b3976d;
+    background-color: rgba(30, 26, 20, 0.9); /* Dark matching background */
+    color: #b3976d;
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    margin: 10px;
+    transition: all 0.3s cubic-bezier(.55, .05, .67, .19);
+}
+
+/* Background overlay when wlogout is active */
+window {
+    background-color: rgba(18, 14, 8, 0.7); /* Match the waybar transparency */
+}
+
+/* Hover state: Makes the button glow like the Waybar clock */
+button:focus,
+button:active,
+button:hover {
+    background-color: #b3976d;
+    color: #120e08;
+    border: 2px solid #f2e5bc;
+    box-shadow: 0 0 15px rgba(179, 151, 109, 0.6);
+}
+
+/* Specific button icons - Adjust the image paths to your local setup */
+#lock {
+    background-image: image(url("/usr/share/wlogout/icons/lock.png"));
+}
+
+#logout {
+    background-image: image(url("/usr/share/wlogout/icons/logout.png"));
+}
+
+#suspend {
+    background-image: image(url("/usr/share/wlogout/icons/suspend.png"));
+}
+
+#hibernate {
+    background-image: image(url("/usr/share/wlogout/icons/hibernate.png"));
+}
+
+#shutdown {
+    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"));
+}
+
+#reboot {
+    background-image: image(url("/usr/share/wlogout/icons/reboot.png"));
+}

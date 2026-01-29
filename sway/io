@@ -1,0 +1,58 @@
+# to find more options for input devices:
+# run `man 5 sway-input`
+
+# my own preference.
+#
+input type:pointer {
+     accel_profile flat
+     pointer_accel -0.2
+ }
+
+# setting a solid background color. if you want to change it to a wallpaper replace the
+# hex color with the path to wallpaper and replace "solid_color" with "fill".
+#
+# for more info, run `man 5 sway-
+
+# Set scaling for the laptop screen
+output eDP-1 scale 1.3
+
+# Set the wallpaper (fill ensures no black bars)
+output * bg ~/Downloads/green.png fill
+
+# this command is used to suspend the computer after some time.
+
+# after 900(15 minutes) seconds the screen will be black.
+# after 1200(20 minutes) seconds the screen will turn off.
+exec swayidle -w \
+         timeout 900 'swaylock -f -c 000000' \
+         timeout 1200 'swaymsg "output * power off"' \
+         resume 'swaymsg "output * power on"' \
+         before-sleep 'swaylock -f -c 000000'
+
+
+
+# Touchpad settings
+input "type:touchpad" {
+    tap enabled
+    natural_scroll disabled
+    dwt enabled # "disable-while-typing" prevents accidental palm clicks
+}
+
+# Keyboard repeat (200ms delay, 50 chars/sec rate)
+input "type:keyboard" {
+    repeat_delay 200
+    repeat_rate 50
+}
+
+
+
+
+
+# Volume Control
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Brightness Control
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-

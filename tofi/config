@@ -1,0 +1,32 @@
+# --- Tofi Evergreen Theme ---
+
+font = "Iosevka Medium"
+font-size = 14
+
+width = 400
+height = 400
+padding-top = 20
+padding-right = 20
+padding-bottom = 20
+padding-left = 20
+
+outline-width = 0
+
+# Border matches the muted olive highlight
+border-width = 1
+border-color = #8b967a
+
+text-cursor = true
+text-cursor-style = 
+text-cursor-thickness = 1
+
+# Colors updated to match Waybar #111C18
+background-color = #111C18
+text-color = #a0a69a
+prompt-color = #8b967a
+input-color = #cbd1c5
+
+# Selection matches the "Ghostty" olive highlight in your screenshot
+selection-color = #8b967a
+selection-background-fill = true
+selection-match-color = #cbd1c5

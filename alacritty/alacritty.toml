@@ -1,0 +1,40 @@
+[colors.primary]
+# Matches your Waybar background
+background = '#111C18' 
+# Matches the light grey-green text
+foreground = '#cbd1c5' 
+
+[colors.normal]
+black   = '#111C18'
+white   = '#cbd1c5'
+# Muted red/coral
+red     = '#e67e80' 
+# The Olive green from the Waybar highlight
+green   = '#8b967a' 
+# Muted teal/blue
+blue    = '#7f968a' 
+yellow  = '#dbbc7f'
+cyan    = '#83c092'
+magenta = '#d699b6'
+
+[colors.bright]
+black   = '#1c2a23'
+white   = '#d1d1c5'
+red     = '#e67e80'
+green   = '#929d71'
+blue    = '#7f968a'
+yellow  = '#dbbc7f'
+cyan    = '#83c092'
+magenta = '#d699b6'
+
+[font]
+# Keeping your Iosevka preference but matching the bar size
+size = 13
+
+[font.normal]
+family = "Iosevka"
+style = "Medium"
+
+[window.padding]
+x = 24
+y = 24

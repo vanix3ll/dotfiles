@@ -1,0 +1,54 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "monospace";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #111C18; 
+    color: #cecece;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    color: #5c6358; 
+}
+
+#workspaces button.focused {
+    background-color: #8b967a; 
+    color: #111C18;
+}
+
+/* Fixes tray icon spacing and vertical alignment */
+#tray {
+    padding-left: 0px;
+    padding-right: 8px;
+   
+}
+
+#battery {
+    margin-right: 10px;
+    padding-right: 5px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+#network, #pulseaudio, #battery, #mpris {
+    padding: 0 0px;
+}
+
+/* Makes the center clock pop */
+#clock {
+    font-weight: bold;
+    color: #d1d1c5;
+}
+

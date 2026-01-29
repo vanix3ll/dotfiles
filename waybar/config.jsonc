@@ -1,0 +1,51 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 26,
+    "modules-left": ["sway/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["mpris", "network", "pulseaudio", "battery", "tray"],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "format": "{name}"
+    },
+
+    "clock": {
+        "format": "{:%I:%M %p}"
+    },
+
+    "network": {
+        "format-wifi": " |   {essid}",
+        "format-ethernet": " | 󰈀 {ifname}",
+        "format-disconnected": " | 󰖪 Disconnected",
+        "on-click": "alacritty -e nmtui", 
+        "tooltip-format": "{ifname} via {gwaddr} 󰊗"
+    },
+
+    "mpris": {
+        "format": "♫ {artist} - {title}",
+        "max-length": 25
+    },
+
+    "pulseaudio": {
+        "format": " |   {volume}%",
+        "format-muted": " | 󰝟 Muted",
+        "on-click": "pavucontrol"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": " | {icon} {capacity}%",
+        "format-charging": " | 󱐋 {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
+    }
+}
