@@ -1,54 +1,222 @@
+/* --- Global Styles --- */
+@import "colors/colors.css";
+
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font", "monospace";
-    font-size: 13px;
-    min-height: 0;
+  font-family: "Google Sans Flex", "SF Pro Display", "Segoe UI",
+    "GeistMono Nerd Font Propo", sans-serif;
+  min-height: 0;
+  font-size: 0.9rem;
 }
 
-window#waybar {
-    background-color: #111C18; 
-    color: #cecece;
+/* --- Tooltips --- */
+tooltip {
+  background: @surface;
+  border: 1px solid @primary;
+  border-radius: 12px;
+}
+tooltip label {
+  color: @on_surface;
 }
 
+/* --- Waybar Container --- */
+#waybar {
+  border-radius: 100px;
+  margin: 0px;
+  font-weight: 500;
+  background-color: transparent;
+}
+
+/* --- Center Modules Container --- */
+.modules-center {
+  background-color: @surface;
+  border-radius: 100px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+
+
+/* --- Hiding Left & Right Modules --- */
+.modules-left,
+.modules-right {
+  background-color: rgba(0, 0, 0, 0); 
+  padding: 0 15px;
+  margin: 0; 
+  opacity: 0; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modules-left:hover,
+.modules-right:hover {
+  opacity: 1;
+}
+
+/* --- Workspaces --- */
+#workspaces {
+  padding: 0.3rem 2px;
+  border-radius: 100px;
+  margin-left: 7px;
+  margin-right: 7px;
+  background: @surface;
+  color: @on_surface;
+}
+
+/* --- 1. BASE STATE (Occupied) --- */
+/* Default style for workspaces that have windows */
 #workspaces button {
-    padding: 0 10px;
-    color: #5c6358; 
+  color: @on_surface;
+  border-radius: 100px;
+  padding: 0.3rem 0.5rem;
+  margin: 0px 1px;
+  border: none;
+  outline: none;
+  min-width: 20px;
+  transition: all 0.3s ease-in-out; 
+
+  /* THE DOT FIX: */
+  /* 1. Define the dot using radial gradient */
+  background-image: radial-gradient(circle, @on_surface 100%, transparent 0%);
+  /* 2. Set the size of the dot explicitly (3px by 3px) */
+  background-size: 3px 3px;
+  /* 3. Don't repeat it */
+  background-repeat: no-repeat;
+  /* 4. Position it: 50% (Center X) and 90% (Near Bottom Y) */
+  background-position: 50% 85%;
 }
 
-#workspaces button.focused {
-    background-color: #8b967a; 
-    color: #111C18;
+/* --- 2. EMPTY STATE (Override) --- */
+#workspaces button.empty {
+  color: alpha(@primary, 0.4); /* Dim text */
+  background-image: none;      /* Remove the dot */
+  background-color: transparent;
+  box-shadow: none;
 }
 
-/* Fixes tray icon spacing and vertical alignment */
+/* --- 3. ACTIVE STATE (Override) --- */
+#workspaces button.active {
+  /* Full Gradient Background - overwrites the dot */
+  background-image: linear-gradient(
+    135deg,
+    @primary 0%,
+    @secondary 50%,
+    @tertiary 100%
+  );
+  color: @surface;
+  padding-left: 1rem; 
+  padding-right: 1rem;
+  min-width: 30px;
+  
+  /* Reset background sizing so gradient covers everything */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+  animation: gradient_f 2s ease infinite;
+}
+
+/* --- Hover Effects --- */
+/* Hover on Occupied */
+#workspaces button:hover {
+  background-color: @secondary; 
+  color: @surface;
+  background-image: none; /* Hide dot on hover */
+}
+
+/* Hover on Empty */
+#workspaces button.empty:hover {
+  background-color: @tertiary; 
+  color: @surface;
+  background-image: none;
+}
+
+/* Hover on Active */
+#workspaces button.active:hover {
+  background-image: linear-gradient(
+    135deg,
+    @primary 0%,
+    @secondary 50%,
+    @tertiary 100%
+  );
+  background-size: 200% 200%;
+}
+
+@keyframes gradient_f {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- Common Module Styles --- */
+#clock,
+#custom-power,
+#custom-notification,
+#pulseaudio,
+#network,
+#mpris,
+#tray,
+#custom-menu {
+  background-color: @surface;
+  padding: 0.3rem 0.7rem;
+  margin: 5px 3px;
+  border-radius: 100px;
+  min-width: 0;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+/* --- Specific Module Colors & Tweaks --- */
+#clock { color: @primary; }
+#pulseaudio, #network { color: @tertiary; }
+
+#pulseaudio.muted {
+  background-color: @error;
+  color: @surface;
+}
+
+#mpris {
+  color: @primary;
+  padding: 0.3rem 1rem;
+  min-width: 20px;
+}
+
 #tray {
-    padding-left: 0px;
-    padding-right: 8px;
-   
+  color: @on_surface;
+  min-width: 20px;
+}
+#tray > .passive { -gtk-icon-effect: dim; }
+#tray > .needs-attention { -gtk-icon-effect: highlight; background-color: @error; }
+
+#custom-power {
+  padding-right: 0.8rem;
+  color: @error;
+  min-width: 15px;
 }
 
-#battery {
-    margin-right: 10px;
-    padding-right: 5px;
+#custom-notification {
+  padding-right: 0.8rem;
+  color: @tertiary;
 }
 
-#tray > .passive {
-    -gtk-icon-effect: dim;
+#custom-menu {
+  color: @on_surface;
+  min-width: 13px;
+  padding-right: 0.8rem;
 }
 
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
+/* --- Hover Effects for Modules --- */
+#clock:hover,
+#pulseaudio:hover,
+#network:hover,
+#mpris:hover,
+#tray:hover,
+#custom-power:hover,
+#custom-notification:hover,
+#custom-menu:hover {
+  background-color: @surface_container_highest;
 }
 
-#network, #pulseaudio, #battery, #mpris {
-    padding: 0 0px;
-}
 
-/* Makes the center clock pop */
-#clock {
-    font-weight: bold;
-    color: #d1d1c5;
-}
+
 
