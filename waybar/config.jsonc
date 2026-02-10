@@ -1,51 +1,115 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 26,
-    "modules-left": ["sway/workspaces"],
-    "modules-center": ["clock"],
-    "modules-right": ["mpris", "network", "pulseaudio", "battery", "tray"],
-
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "format": "{name}"
-    },
-
-    "clock": {
-        "format": "{:%I:%M %p}"
-    },
-
-    "network": {
-        "format-wifi": " |   {essid}",
-        "format-ethernet": " | 󰈀 {ifname}",
-        "format-disconnected": " | 󰖪 Disconnected",
-        "on-click": "alacritty -e nmtui", 
-        "tooltip-format": "{ifname} via {gwaddr} 󰊗"
-    },
-
-    "mpris": {
-        "format": "♫ {artist} - {title}",
-        "max-length": 25
-    },
-
-    "pulseaudio": {
-        "format": " |   {volume}%",
-        "format-muted": " | 󰝟 Muted",
-        "on-click": "pavucontrol"
-    },
-
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-top": 5,
+    "margin-bottom": 5,
+    "modules-left": [
+        "tray"
+    ],
+    "modules-center": [
+        "clock",
+        "hyprland/workspaces",
+        "pulseaudio",
+        "custom/notification",
+        "custom/power"
+    ],
+    "modules-right": [
+        "mpris"
+    ],
+    "hyprland/workspaces": {
+        "active-only": false,
+        "all-outputs": true,
+        "on-click": "activate",
+        "format": "{icon}",
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5]
         },
-        "format": " | {icon} {capacity}%",
-        "format-charging": " | 󱐋 {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+            "10": "十"
+        }
     },
-
+    "clock": {
+        "tooltip": false,
+        "format": "{:%I:%M %p}",
+        "interval": 1,
+        "on-click": "python ~/.config/hypr/scripts/music.py --toggle"
+    },
+    "network": {
+        "format-wifi": "󰤢",
+        "format-ethernet": "󰈀 ",
+        "format-disconnected": "󰤠 ",
+        "interval": 5,
+        "tooltip": false,
+        "on-click": "nm-connection-editor"
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-muted": " ",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                " "
+            ]
+        },
+        "tooltip": true,
+        "tooltip-format": "Volume: {volume}%",
+        "on-click": "pavucontrol -t 3",
+     	"on-click-right": "~/.config/hypr/scripts/cycle_audio.sh"
+     	
+    },
+    "mpris": {
+        "format": "{player_icon} {title} - {artist}",
+        "format-paused": "{status_icon} {title} - {artist}",
+        "player-icons": {
+            "default": "▶",
+            "mpd": "🎵"
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "max-length": 30
+    },
+    "custom/power": {
+        "format": " ",
+        "on-click": "wlogout",
+        "tooltip": false
+    },
     "tray": {
-        "icon-size": 16,
-        "spacing": 10
+        "icon-size": 21,
+        "spacing": 5,
+        "icons": {
+            "blueman": "bluetooth",
+            "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        }
+    },
+    "custom/notification": {
+            "format": "{icon}",
+            "format-icons": {
+                "default": "󰂜"
+            },
+            "return-type": "json",
+            "interval": 1,
+            "on-click": "playerctl play-pause",
+            "on-click-right": "playerctl next"
+        },
+    "custom/menu": {
+        "format": "{}",
+        "exec": "echo ; echo 󱓟 app launcher",
+        "interval": 86400,
+        "tooltip": false,
+        "on-click": "pkill rofi || rofi -show drun",
+        "on-click-right": "~/.config/hypr/wppicker.sh"
     }
 }
